@@ -11,7 +11,6 @@ exports.login = async (req, res) => {
   }
   const user = await User.findOne({ email });
   const isMatch = await user.validatePassword(password);
-
   if (!user || !isMatch) {
     //  principle: the least knowledge of the system is the best knowledge
     return res.status(400).json({ error: "Invalid email or password" });

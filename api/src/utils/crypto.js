@@ -1,7 +1,7 @@
+require("dotenv/config");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
-require("dotenv/config");
 
 const salt = bcrypt.genSaltSync(12);
 
