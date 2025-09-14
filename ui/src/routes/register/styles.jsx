@@ -25,7 +25,7 @@ export const Title = styled.h1`
   text-align: center;
 `;
 
-export const Context = styled.div`
+export const Content = styled.div`
   margin-top: ${(props) => props.theme.spacing.md};
   > * + * {
     margin-top: ${(props) => props.theme.spacing.sm};
