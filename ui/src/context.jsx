@@ -1,5 +1,6 @@
-import { createContext, useReducer, useContext } from "react";
-import actions from "./constants/actions";
+import { createContext, useReducer } from "react";
+import { actions } from "./constants/actions";
+
 const initialState = {
   user: {
     details: null,
@@ -7,7 +8,7 @@ const initialState = {
   },
 };
 
-const AppContext = createContext(initialState);
+export const AppContext = createContext(initialState);
 
 /**
  * Reducer function to manage state updates
@@ -22,7 +23,7 @@ const reducer = (state, action) => {
     case actions.UPDATE_USER: {
       return {
         ...state,
-        user: actions.payload,
+        user: action.payload,
       };
     }
     default: {
@@ -41,6 +42,3 @@ export const AppProvider = ({ children }) => {
     </AppContext.Provider>
   );
 };
-
-// Custom hook to access the context
-export const useAppContext = () => useContext(AppContext);

@@ -14,15 +14,16 @@ import { Wrapper, Content, SecondaryAction } from "./styles";
 import { LogoWrapper, Title } from "./styles";
 import { useApi } from "../../hooks/use-api";
 
-import userAppContext from "../../context";
-import actions from "../../constants/actions";
+import { useAppContext } from "../../hooks/useContext";
+import { actions } from "../../constants/actions";
 const RegisterRoute = () => {
   const theme = useTheme();
   const [error, setError] = useState(false);
   const { loading, postRequest } = useApi();
   const navigate = useNavigate();
-  const { useAppContext } = userAppContext;
-  const { dispatch } = useAppContext();
+
+  // eslint-disable-next-line no-unused-vars
+  const { state, dispatch } = useAppContext();
   const formik = useFormik({
     initialValues: {
       name: "",
