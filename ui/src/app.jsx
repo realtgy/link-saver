@@ -8,7 +8,7 @@ import RegisterRoute from "./routes/register";
 import RootRoute from "./routes/root";
 import UnverifiedRoute from "./routes/unverified";
 import VerifyRoute from "./routes/verify";
-
+import ProtectedRoute from "./routes/protected";
 const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
@@ -33,7 +33,9 @@ const App = () => {
         <Route path="/register" element={<RegisterRoute />} />
         <Route path="/unverified" element={<UnverifiedRoute />} />
         <Route path="/verify/:token" element={<VerifyRoute />} />
-        <Route path="/" element={<RootRoute />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<RootRoute />} />
+        </Route>
       </Routes>
     </>
   );

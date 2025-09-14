@@ -1,5 +1,11 @@
+import Header from "../../components/header";
 const RootRoute = () => {
-  return <div>Root!</div>;
+  return (
+    <>
+      <Header />
+      <div>Root Route - Protected Content</div>
+    </>
+  );
 };
 
 export default RootRoute;
