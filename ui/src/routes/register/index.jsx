@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-import { get } from "lodash";
 
 import Button from "../../components/button";
 import Card from "../../components/card";
@@ -44,7 +43,7 @@ const RegisterRoute = () => {
           setError("An error occurred");
         }
       } catch (error) {
-        const errMsg = get(error, "response.data.message", "An error occurred");
+        const errMsg = error?.response?.data?.error ?? "An error occurred";
         setError(errMsg);
       }
     },
