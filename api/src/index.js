@@ -1,19 +1,21 @@
-const mongoose = require("mongoose");
 require("dotenv/config");
-
+const mongoose = require("mongoose");
 require("./models/user");
 require("./models/token");
 const db = require("./utils/db");
-
 const app = require("./app");
 
 async function main() {
-  await db.connect(process.env.MONGODB_URI);
-
-  // Tell Mongoose to use ES6 promises
+  const MONGODB_URI = process.env.MONGODB_URI;
+  console.log("MONGODB_URI ===> ", MONGODB_URI);
+  if (!MONGODB_URI) {
+    throw new Error("Please define the MONGODB_URI environment variable");
+  }
+  await db.connect(MONGODB_URI);
   mongoose.Promise = global.Promise;
 
-  app.set("port", process.env.PORT || 7777);
+  const PORT = process.env.PORT || 3000;
+  app.set("port", PORT);
 
   const port = app.get("port");
   app.listen(port, () => {

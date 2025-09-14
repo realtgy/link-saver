@@ -12,6 +12,8 @@ services:
     working_dir: /usr/app/src
     links:
       - mongo
+    env_file:
+      - .env
   mongo:
     image: mongo:8.0.1
     environment:
