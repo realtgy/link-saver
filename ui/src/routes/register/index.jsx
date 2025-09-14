@@ -26,17 +26,18 @@ const RegisterRoute = () => {
       email: "",
       password: "",
     },
-    validationSchema: {
+    validationSchema: Yup.object({
       name: Yup.string().required("Name is required"),
       email: Yup.string().email("Invalid email").required("Email is required"),
       password: Yup.string()
         .min(6, "Password must be at least 6 characters")
         .required("Password is required"),
-    },
+    }),
     onSubmit: async (values) => {
       setError(false);
       try {
-        const res = await postRequest("/auth/register", values);
+        const res = await postRequest("/auth/register", { ...values });
+        console.log("register data ==>", res);
         if (res?.data) {
           navigate("/login");
         } else {
@@ -57,7 +58,7 @@ const RegisterRoute = () => {
         </LogoWrapper>
         <Title>Create new account</Title>
         {error && <Error>{error}</Error>}
-        <form action="">
+        <form onSubmit={formik.handleSubmit}>
           <Content>
             <Input
               name="name"
