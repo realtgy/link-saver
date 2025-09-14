@@ -14,11 +14,15 @@ import { Wrapper, Content, SecondaryAction } from "./styles";
 import { LogoWrapper, Title } from "./styles";
 import { useApi } from "../../hooks/use-api";
 
+import userAppContext from "../../context";
+import actions from "../../constants/actions";
 const RegisterRoute = () => {
   const theme = useTheme();
   const [error, setError] = useState(false);
   const { loading, postRequest } = useApi();
   const navigate = useNavigate();
+  const { useAppContext } = userAppContext;
+  const { dispatch } = useAppContext();
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -35,9 +39,13 @@ const RegisterRoute = () => {
     onSubmit: async (values) => {
       setError(false);
       try {
-        const res = await postRequest("/auth/register", { ...values });
-        console.log("register data ==>", res);
-        if (res?.data) {
+        const resp = await postRequest("/auth/register", { ...values });
+        if (resp?.data) {
+          const { user, token } = resp.data;
+          dispatch({
+            type: actions.UPDATE_USER,
+            payload: { details: user, token },
+          });
           navigate("/login");
         } else {
           setError("An error occurred");

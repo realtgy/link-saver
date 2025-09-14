@@ -13,7 +13,6 @@ const Token = mongoose.model("Token");
 
 exports.register = async (req, res) => {
   const { email, password, name } = req.body;
-
   const existingUser = await User.findOne({ email });
   if (existingUser) {
     res.status(400).send({
@@ -34,10 +33,10 @@ exports.register = async (req, res) => {
     token: generateCryptoToken(),
   });
 
-  await sendVerification({
-    email: user.email,
-    token: emailToken,
-  });
+  // await sendVerification({
+  //   email: user.email,
+  //   token: emailToken,
+  // });
 
   const token = generateToken(user);
   const parsedUser = parseUser(user);
