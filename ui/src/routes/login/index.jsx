@@ -16,6 +16,7 @@ import { useApi } from "../../hooks/use-api";
 
 import { useAppContext } from "../../hooks/useContext";
 import { actions } from "../../constants/actions";
+import { toast } from "react-toastify";
 const LoginRoute = () => {
   const theme = useTheme();
   const [error, setError] = useState(false);
@@ -41,11 +42,12 @@ const LoginRoute = () => {
         const resp = await postRequest("auth/login", { ...values });
         if (resp?.data) {
           const { user, token } = resp.data;
+          toast.success("Login successful!");
           dispatch({
             type: actions.UPDATE_USER,
             payload: { details: user, token },
           });
-          navigate("/root");
+          navigate("/");
         } else {
           setError("An error occurred");
         }
