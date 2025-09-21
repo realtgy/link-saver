@@ -12,15 +12,16 @@ exports.generateHash = (password) => {
 };
 
 // Generate a JWT token
+// 这里只是对id进行了签名
 exports.generateToken = (user) => {
   const token = jwt.sign(
     {
-      userId: user.userId,
-      email: user.email,
+      id: user.id,
     },
     process.env.JWT_SECRET,
     {
-      expiresIn: 60 * 60 * 24 * 7, // 7 days
+      expiresIn: "7d",
+      algorithm: "HS256",
     }
   );
 
@@ -30,10 +31,15 @@ exports.generateToken = (user) => {
 // Verify a JWT token
 exports.verifyToken = (token) => {
   return new Promise((resolve, reject) => {
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      if (err) return reject(err);
-      resolve(decoded);
-    });
+    jwt.verify(
+      token,
+      process.env.JWT_SECRET,
+      { algorithms: ["HS256"] },
+      (err, decoded) => {
+        if (err) return reject(err);
+        resolve(decoded);
+      }
+    );
   });
 };
 
