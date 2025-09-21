@@ -24,6 +24,8 @@ exports.validate = async (req, res, next) => {
     }
     // validated user, attach to req object
     req.user = parseUser(user);
+    req.userId = user.id;
+    req.token = token;
     next();
   } catch (err) {
     return res.status(401).json({ error: "Invalid token" });
