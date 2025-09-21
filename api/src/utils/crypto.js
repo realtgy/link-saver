@@ -27,5 +27,15 @@ exports.generateToken = (user) => {
   return token;
 };
 
+// Verify a JWT token
+exports.verifyToken = (token) => {
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) return reject(err);
+      resolve(decoded);
+    });
+  });
+};
+
 // Generate a random hash for email validation
 exports.generateCryptoToken = () => crypto.randomBytes(32).toString("hex");
