@@ -4,9 +4,9 @@ require("dotenv").config();
 const { parseUser } = require("../utils/parse-user");
 const { verifyToken } = require("../utils/crypto");
 const User = mongoose.model("User");
-
-exports.validate = async (req, res, next) => {
-  const authHeader = req.headers["Authorization"];
+// headers中的key是小写的？？是的，HTTP头部字段名是不区分大小写的，但在Node.js中，通常使用小写字母来访问它们。
+exports.validation = async (req, res, next) => {
+  const authHeader = req.headers["authorization"];
   if (!authHeader) {
     return res.status(403).json({ error: "No token provided" });
   }
